@@ -1,0 +1,19 @@
+{
+  "background": {
+    "persistent": true,
+    "scripts": [ "./js/will_rename.js" ]
+  },
+  "browser_action": {
+    "default_icon": "train.png",
+    "default_popup": "plugin.html"
+  },
+  "content_scripts": [{
+    "matches": ["https://www.irctc.co.in/eticketing/*"],
+    "js": ["./js/content.js"]
+  }],
+  "description": "This Plugin is for IRCTC Tatkal auto fill purpose, Please dont miss use it.:P",
+  "manifest_version": 2,
+  "name": "Tatkal Helper",
+  "permissions": [ "tabs", "\u003Call_urls>", "storage" ],
+  "version": "1.2"
+}
