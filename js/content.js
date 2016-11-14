@@ -35,7 +35,7 @@ var Booking = {
 						  gender: form["addPassengerForm:psdetail:"+num+":psgnGender"],
 						  berth: form["addPassengerForm:psdetail:"+num+":berthChoice"]
 						}
-					console.log(p);
+					
 					fObject.name.value = p.name;
 					fObject.age.value = p.age;
 					fObject.gender.value = p.gender;
@@ -55,7 +55,7 @@ var Booking = {
 					  age: form["addPassengerForm:childInfoTable:"+i+":infantAge"],
 					  gender: form["addPassengerForm:childInfoTable:"+i+":infantGender"]
 					}
-					console.log(p);
+					
 					fObject.name.value = p.name;
 					fObject.age.value = p.age;
 					fObject.gender.value = p.gender;
@@ -80,7 +80,6 @@ var actions = {
 						for (index = 0; index < len; index++) {
 							patterns = actions.valid_urls[index];
 							var path = window.location.pathname.match(patterns);
-							console.log(path)
 							if (path){
 								chrome.runtime.sendMessage({'type': "content", 'path': path, 'doc': document}, actions.fillAllDetails);
 								break;

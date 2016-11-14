@@ -4,7 +4,6 @@
     "scripts": [ "./js/will_rename.js" ]
   },
   "browser_action": {
-    "default_icon": "train.png",
     "default_popup": "plugin.html"
   },
   "content_scripts": [{

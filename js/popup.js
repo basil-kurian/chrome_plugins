@@ -78,25 +78,28 @@ Model.prototype.getOrder = function() {
 }
 
 Model.prototype.updateTable = function(data) {
-	var i = 1;
+	var i = 0;
 	var index = this.rows;
 	var me = this;
-	var content = $(this.getId() + "Content")[0];
-	var row = content.insertRow(this.rows);
+	var content = $(this.getId() + "Content");
+	var row = $("<tr>");
 	this.rows++;
-	row.insertCell(0).innerHTML = this.rows;
+	row.append("<td>"+ this.rows + "</td>");
 	var order = this.getOrder();
 	for (var v in data) {
-		var value = order ? order[i - 1] : v;
-		row.insertCell(i++).innerHTML = data[value];
+		var value = order ? order[i++] : v;
+		row.append("<td>"+data[value]+"</td>");
 	}
-	var btn = $('<input type="button" class="btn btn-xs btn-danger btn-block" value="Delete"/>')[0];
-	btn.addEventListener("click", function(r){me.remove(index)}, false);
-	row.insertCell(i).append(btn);
+	var btn = $('<a href="#" class="btn btn-xs btn-danger btn-block">');
+	btn.on("click", function(r){me.remove(index)});
+	btn.append('<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>');
+	row.append(btn);
+	content.append(row);
 }
 
 Model.prototype.validate = function(data, errorMessage, validation_callback){
 	if (!this.internalValidation(data, validation_callback)) {
+		console.log(errorMessage);
 		$("#error").html(errorMessage);
 		$('#myModal').modal('show');
 		return false;
@@ -137,7 +140,6 @@ var UI = {
 		UI.save();
 	},
 	"save" : function() {
-		console.log("Saving...")
 		chrome.storage.local.set(UI.background.BookingData);
 	},
 	"initialize": function() {
@@ -154,7 +156,7 @@ var UI = {
 						var age 	= 	$("#passengerAge").val();
 						var gender 	= 	$("input[name='passengerGender']:checked")[0].defaultValue;
 						var berth 	= 	$("#passengerBerth").val();
-						if (!me.validate(name, "Name") || !me.validate(age, "Age")) return;
+						if (!me.validate(name, "Name cannot be empty",  function (data) {return "undefined" !== typeof data && data !== "" && data.length !== 0;}) || !me.validate(age, "Age cannot be empty",  function (data) {return "undefined" !== typeof data && data !== "" && data.length !== 0;})) return;
 						var passenger = new UI.background.Passenger(name, age, gender, berth);
 						UI.background.BookingData.passengers.push(passenger);
 						me.setCounts();
@@ -187,7 +189,7 @@ var UI = {
 						var name 	= 	$("#childrenName").val();
 						var age 	= 	$("#childrenAge").val();
 						var gender 	= 	$("input[name='childrenGender']:checked")[0].defaultValue;
-						if (!me.validate(name, "Name cannot be Empty for children") || !(me.validate(age, "Age cannot be empty") && me.validate(age, "Children whose age is more than 4 is not considered as infant", function(data){return parseInt(data) > 0 && parseInt(data) < 5; }))) return;
+						if (!me.validate(name, "Name cannot be Empty for children", function (data) {return "undefined" !== typeof data && data !== "" && data.length !== 0;}) || !(me.validate(age, "Age cannot be empty",  function (data) {return "undefined" !== typeof data && data !== "" && data.length !== 0;}) && me.validate(age, "Children whose age is more than 4 is not considered as infant", function(data){return parseInt(data) >= 0 && parseInt(data) < 5; }))) return;
 						var child = new UI.background.Children(name, age, gender);
 						UI.background.BookingData.children.push(child);
 						me.setCounts();
@@ -208,18 +210,18 @@ var UI = {
 			 }
 			children.initialize();
 		
-			$('form#preferencesForm input[type="text"].otherInfo').each(function(number, target){
+			$('input[type="text"].otherInfo').each(function(number, target){
 				var data = UI.background.BookingData[target.id];
 				data && (target.value = data);
 			});
-			$('form#preferencesForm input[type="checkbox"].otherInfo').each(function(number, target){
+			$('input[type="checkbox"].otherInfo').each(function(number, target){
 				target.checked = UI.background.BookingData[target.id];
 			});
-			$('form#preferencesForm input[name="bookingCond"]')[UI.background.BookingData.bookingCond].checked = true;
+			$('input[name="bookingCond"]')[UI.background.BookingData.bookingCond].checked = true;
 			
-			$('form#preferencesForm input[type="text"].otherInfo').blur(UI.validateAndSaveTextBoxData);
-			$('form#preferencesForm input[type="checkbox"].otherInfo').change(UI.validateAndSaveCheckBoxData);
-			$('form#preferencesForm input[name="bookingCond"]').change(UI.validateAndSaveRadioData);
+			$('input[type="text"].otherInfo').blur(UI.validateAndSaveTextBoxData);
+			$('input[type="checkbox"].otherInfo').change(UI.validateAndSaveCheckBoxData);
+			$('input[name="bookingCond"]').change(UI.validateAndSaveRadioData);
 			console.log(UI.background.BookingData);
 		});
 	}

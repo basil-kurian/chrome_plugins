@@ -32,8 +32,6 @@
 	  </div>
 	</div>
 
- <form id="preferencesForm" class="form-horizontal">
-
 		<div class="well">  
 				<div class="row">
 					<ul class="list-group">
@@ -98,6 +96,67 @@
 
   <!-- Tab panes -->
 	  <div class="tab-content">
+	  
+	  	<div role="tabpanel" class="tab-pane fade" id="preferences">
+			
+				<div class="panel-body"> 
+					<div class="row" style="margin-top: 5px; margin-bottom: 5px;">
+						<div class="form-group">
+							<div class="col-xs-5">
+								<label for="preferedCoach">Preferred Coach ID</label>
+							</div>
+							<div class="col-xs-7">
+								<div class="input-group input-group-xs">
+									<div class="input-group-addon">
+										<span class="glyphicon glyphicon-heart" aria-hidden="true"></span>
+									</div>
+									<input type="text" class="form-control input-xs otherInfo" id="preferedCoach" placeholder="Preferred Coach id">  
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<ul class="list-group">
+							<li class="list-group-item">
+							<label>Consider for Auto Upgradation</label>
+							<div class="material-switch pull-right">
+								<input type="checkbox" id="consider_auto_upgrade" class="otherInfo"/>
+								<label for="consider_auto_upgrade" class="label-success"></label>
+							</div>
+							</li>
+							</li>
+							<li class="list-group-item">
+							<label>Book only if confirm berths are allotted</label>
+							<div class="material-switch pull-right">
+								<input type="checkbox" id="onlyConfirmBerths" class="otherInfo"/>
+								<label for="onlyConfirmBerths" class="label-success"></label>
+							</div>
+							</li>
+							<li class="list-group-item">
+							
+								<label for="bookingCond">Book only if any of below condition is satisfied</label><BR>
+										
+								  <li class="list-group-item sub-item"><input class="otherInfo" type="radio" name="bookingCond" id="bookingCond0" value="0" checked> 
+								  None
+								  </li>
+
+								  <li class="list-group-item sub-item"><input class="otherInfo" type="radio" name="bookingCond" id="bookingCond1" value="1">
+								  Book , only if all berths are allotted in same coach
+								  </li>
+
+								  <li class="list-group-item sub-item"><input class="otherInfo" type="radio" name="bookingCond" id="bookingCond2" value="2">
+								  Book, only if at least 1 lower berth is allotted
+								  </li>
+
+								  <li class="list-group-item sub-item"><input class="otherInfo" type="radio" name="bookingCond" id="bookingCond3" value="3">
+								  Book, only if 2 lower berths are allotted
+								  </li>
+							</li>
+						</ul>
+					</div>
+				</div>	
+	   </div> <!-- PreferencePanel end -->
+
 	   <div role="tabpanel" class="tab-pane fade in active" id="passengerDetails"> <!-- Mobile Number and Other details Row -->
 		  <div class="panel-body">
 			  <form id="passengerForm">
@@ -151,6 +210,8 @@
 					</div>
 				</div> <!-- Row 3 -->
 			  </form>
+
+
 				<div class="table-responsive">
 				  <table class="table table-striped">
 					<thead> 
@@ -239,69 +300,9 @@
 				</div>
 		  </div> <!-- Panel Body End -->
 		</div>	 <!-- Panel End -->
-	   <div role="tabpanel" class="tab-pane fade" id="preferences">
-			
-				<div class="panel-body"> 
-					<div class="row">
-						<ul class="list-group">
-							<li class="list-group-item">
-							<label>Consider for Auto Upgradation</label>
-							<div class="material-switch pull-right">
-								<input type="checkbox" id="consider_auto_upgrade" class="otherInfo"/>
-								<label for="consider_auto_upgrade" class="label-success"></label>
-							</div>
-							</li>
-							</li>
-							<li class="list-group-item">
-							<label>Book only if confirm berths are allotted</label>
-							<div class="material-switch pull-right">
-								<input type="checkbox" id="onlyConfirmBerths" class="otherInfo"/>
-								<label for="onlyConfirmBerths" class="label-success"></label>
-							</div>
-							</li>
-							<li class="list-group-item">
-							
-								<label for="bookingCond">Book only if any of below condition is satisfied</label><BR>
-										
-								  <li class="list-group-item sub-item"><input class="otherInfo" type="radio" name="bookingCond" id="bookingCond0" value="0" checked> 
-								  None
-								  </li>
-
-								  <li class="list-group-item sub-item"><input class="otherInfo" type="radio" name="bookingCond" id="bookingCond1" value="1">
-								  Book , only if all berths are allotted in same coach
-								  </li>
-
-								  <li class="list-group-item sub-item"><input class="otherInfo" type="radio" name="bookingCond" id="bookingCond2" value="2">
-								  Book, only if at least 1 lower berth is allotted
-								  </li>
-
-								  <li class="list-group-item sub-item"><input class="otherInfo" type="radio" name="bookingCond" id="bookingCond3" value="3">
-								  Book, only if 2 lower berths are allotted
-								  </li>
-							</li>
-							<li class="list-group-item">
-									<div class="form-group">
-											<div class="col-xs-5">
-												<label for="preferedCoach">Preferred Coach ID</label>
-											</div>
-											<div class="col-xs-7">
-												<div class="input-group input-group-xs">
-													  <div class="input-group-addon">
-														<span class="glyphicon glyphicon-heart" aria-hidden="true"></span>
-													  </div>
-													  <input type="text" class="form-control input-xs otherInfo" id="preferedCoach" placeholder="Preferred Coach id">  
-												</div>
-											</div>
-									</div>
-							</li>
-						</ul>
-					</div>
-				</div>	
-	   </div>
+	   
 	  </div>
 	  
-	  
- </form>
  </div>
 <script src="./js/jquery.min.js"></script>
 <script src="./js/bootstrap.min.js"></script>

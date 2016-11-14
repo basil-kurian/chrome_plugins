@@ -10,21 +10,11 @@ function Children (name, age, gender) {
  this.gender = gender;
 }
 
-function Validator(){
-	this.phonenumber = /^\d{10}$/;
-}
-Validator.prototype.validateMobileNumber = function(num) {
-		return num.match(this.phonenumber)
-	}
-Validator.prototype.validatePassenger = function(passenger) {
-		return passenger && passenger.name && passenger.age && (passenger.gender == 'F' || passenger.gender == 'M');
-	}
-
 var BookingData =  {
 	enabled: true,
-	mobileNumber: undefined,
-	boardingStation: undefined,
-	preferedCoach: undefined,
+	mobileNumber: "",
+	boardingStation: "",
+	preferedCoach: "",
 	bookingCond: 0,
 	consider_auto_upgrade: false,
 	onlyConfirmBerths: false,
@@ -36,7 +26,6 @@ var BookingData =  {
 
 // Reading from chrome local storage
 chrome.storage.local.get(BookingData, function(result) {
-	console.log(result);
   result.mobileNumber && (BookingData.mobileNumber = result.mobileNumber);
   result.consider_auto_upgrade && (BookingData.consider_auto_upgrade = result.consider_auto_upgrade);
   result.onlyConfirmBerths && (BookingData.onlyConfirmBerths = result.onlyConfirmBerths);
@@ -50,6 +39,5 @@ chrome.storage.local.get(BookingData, function(result) {
 });
 
 chrome.runtime.onMessage.addListener(function (msg, sender, callBack) {
-   console.log(msg);
    callBack(BookingData);
 });
