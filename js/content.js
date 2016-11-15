@@ -1,7 +1,6 @@
 var Booking = {
 	bookingData: undefined,
 	fillOtherDetails: function(form) {
-		console.log(form);
 		if (form.id === "addPassengerForm"){
 			Booking.bookingData.mobileNumber && (form['addPassengerForm:mobileNo'].value = Booking.bookingData.mobileNumber);
 			Booking.bookingData.boardingStation && (form['addPassengerForm:boardingStation'] = Booking.bookingData.boardingStation);
@@ -25,7 +24,6 @@ var Booking = {
 	fillPassengerDetails: function(form) {
 		if (form.id === "addPassengerForm"){
 			if (!(Booking.bookingData.passengers && Booking.bookingData.passengers.length > 0)) return;
-			console.log("Filling Passenger details");
 			var limit = parseInt(form['addPassengerForm:maxPassengersH'].value) < Booking.bookingData.passengers.length ? parseInt(form['addPassengerForm:maxPassengersH'].value) : Booking.bookingData.passengers.length;
 			for (var num = 0; num < limit; num++){
 					var p = Booking.bookingData.passengers[num];
@@ -47,7 +45,6 @@ var Booking = {
 		if (form.id === "addPassengerForm"){
 			var num = 0;
 			if ("undefined" === typeof Booking.bookingData.children || Booking.bookingData.children.length <= 0) return;
-			console.log("Filling Children details");
 			for (var i = 0; i < Booking.bookingData.children.length; i++){
 					var p = Booking.bookingData.children[i];
 					var fObject = { 
@@ -64,7 +61,6 @@ var Booking = {
 		}
 	},
 	fillDetails: function(form) {
-		console.log(form)
 		if (form.id == "addPassengerForm"){
 			Booking.fillPassengerDetails(form);
 			Booking.fillChildrenDetails(form);
@@ -81,18 +77,36 @@ var actions = {
 							patterns = actions.valid_urls[index];
 							var path = window.location.pathname.match(patterns);
 							if (path){
-								chrome.runtime.sendMessage({'type': "content", 'path': path, 'doc': document}, actions.fillAllDetails);
+								chrome.runtime.sendMessage({'type': 'content', 'path': path, 'context': document}, actions.fillAllDetails);
 								break;
 							}
 						}
 					},
+	findAndShowCaptcha : function() {
+			captcha = document.getElementById("addPassengerForm:dynamicCapatchaPanel");
+			setTimeout(function(){
+				var identifier = $("#nlpIdentifier");
+				if (identifier != undefined && identifier.length){
+					input = $("input#nlpAnswer");
+					if (captcha && input.length){
+							input.blur(function() {
+								if (input.val() && input.val() != ""){
+									$("#validate").click();
+								}
+							});
+							window.scrollBy(0,500);
+							input.focus();
+					}
+				}
+			}, 1000);
+	},
 	fillAllDetails: function(data) {
 		
 		if (data && data.enabled){
 			Booking.bookingData = data;
 			console.log(Booking.bookingData)
 			var form = document.forms['addPassengerForm'] || document.forms['jpBook'];
-			console.log(form);
+			actions.findAndShowCaptcha();
 			if (form){
 				Booking.fillDetails(form);
 			}
