@@ -37,7 +37,14 @@ chrome.storage.local.get(BookingData, function(result) {
   result.children && (BookingData.children = result.children);
   result.payment_details && (BookingData.payment_details = result.payment_details);
 });
-
 chrome.runtime.onMessage.addListener(function (msg, sender, callBack) {
-   callBack(BookingData);
+	if (msg.type === "content"){
+		chrome.tabs.executeScript(null, {file: "/js/jquery.min.js"});
+		callBack(BookingData);
+	} else if (msg.type === "captcha"){
+		console.log(msg);
+		console.log(msg.context);
+		callBack("test data");
+	}
+   
 });
