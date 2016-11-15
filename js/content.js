@@ -98,7 +98,7 @@ var actions = {
 							input.focus();
 					}
 				}
-			}, 1000);
+			}, 100);
 	},
 	fillAllDetails: function(data) {
 		
