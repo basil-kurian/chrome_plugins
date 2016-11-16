@@ -84,6 +84,7 @@ var actions = {
 					},
 	findAndShowCaptcha : function() {
 			captcha = document.getElementById("addPassengerForm:dynamicCapatchaPanel");
+			window.scrollBy(0,800);
 			setTimeout(function(){
 				var identifier = $("#nlpIdentifier");
 				if (identifier != undefined && identifier.length){
@@ -94,11 +95,10 @@ var actions = {
 									$("#validate").click();
 								}
 							});
-							window.scrollBy(0,500);
 							input.focus();
 					}
 				}
-			}, 100);
+			}, 1000);
 	},
 	fillAllDetails: function(data) {
 		
