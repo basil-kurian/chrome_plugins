@@ -19,6 +19,7 @@ var BookingData =  {
 	consider_auto_upgrade: false,
 	onlyConfirmBerths: false,
 	travel_insurance: false,
+	donotshow: false,
 	passengers: [],
 	children: [],
 	payment_details: {}
@@ -36,15 +37,15 @@ chrome.storage.local.get(BookingData, function(result) {
   result.passengers && (BookingData.passengers = result.passengers);
   result.children && (BookingData.children = result.children);
   result.payment_details && (BookingData.payment_details = result.payment_details);
+  result.donotshow && (BookingData.donotshow = result.donotshow);
 });
 chrome.runtime.onMessage.addListener(function (msg, sender, callBack) {
 	if (msg.type === "content"){
 		chrome.tabs.executeScript(null, {file: "/js/jquery.min.js"});
 		callBack(BookingData);
-	} else if (msg.type === "captcha"){
+	} else if (msg.type === "event"){
 		console.log(msg);
 		console.log(msg.context);
-		callBack("test data");
 	}
    
 });

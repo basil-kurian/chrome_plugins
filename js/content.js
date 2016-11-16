@@ -2,6 +2,7 @@ var Booking = {
 	bookingData: undefined,
 	fillOtherDetails: function(form) {
 		if (form.id === "addPassengerForm"){
+			new Event("content.details.fill.other.start", Booking.bookingData).fire();
 			Booking.bookingData.mobileNumber && (form['addPassengerForm:mobileNo'].value = Booking.bookingData.mobileNumber);
 			Booking.bookingData.boardingStation && (form['addPassengerForm:boardingStation'] = Booking.bookingData.boardingStation);
 			if (form['addPassengerForm:travelInsurance']){
@@ -19,11 +20,14 @@ var Booking = {
 				form['addPassengerForm:prefCoachOpt'].checked = true;
 				form['addPassengerForm:coachID'].value = Booking.bookingData.preferedCoach;
 			}
+			new Event("content.details.fill.other.end", Booking.bookingData).fire();
 		}
 	},
 	fillPassengerDetails: function(form) {
 		if (form.id === "addPassengerForm"){
+			new Event("content.details.fill.passenger.start", Booking.bookingData.passengers).fire();
 			if (!(Booking.bookingData.passengers && Booking.bookingData.passengers.length > 0)) return;
+			new Event("content.details.fill.passenger.success", Booking.bookingData.passengers).fire();
 			var limit = parseInt(form['addPassengerForm:maxPassengersH'].value) < Booking.bookingData.passengers.length ? parseInt(form['addPassengerForm:maxPassengersH'].value) : Booking.bookingData.passengers.length;
 			for (var num = 0; num < limit; num++){
 					var p = Booking.bookingData.passengers[num];
@@ -40,11 +44,14 @@ var Booking = {
 					fObject.berth.value = p.berth;
 				}
 			}
+			new Event("content.details.fill.passenger.end", { 'count': limit }).fire();
 	},
 	fillChildrenDetails: function(form) {
 		if (form.id === "addPassengerForm"){
 			var num = 0;
+			new Event("content.details.fill.children.start", Booking.bookingData.children).fire();
 			if ("undefined" === typeof Booking.bookingData.children || Booking.bookingData.children.length <= 0) return;
+			new Event("content.details.fill.children.success", Booking.bookingData.children).fire();
 			for (var i = 0; i < Booking.bookingData.children.length; i++){
 					var p = Booking.bookingData.children[i];
 					var fObject = { 
@@ -58,15 +65,28 @@ var Booking = {
 					fObject.gender.value = p.gender;
 			
 			}
+			new Event("content.details.fill.children.end", Booking.bookingData.children.length).fire();
 		}
 	},
 	fillDetails: function(form) {
 		if (form.id == "addPassengerForm"){
+			new Event("content.details.fill.details.start", form).fire();
 			Booking.fillPassengerDetails(form);
 			Booking.fillChildrenDetails(form);
 			Booking.fillOtherDetails(form);
+			new Event("content.details.fill.details.end", form).fire();
 		}
 	}
+}
+
+function Event(eventType, description){
+	this.eventType = eventType;
+	this.description = description;
+	this.time = Date();
+}
+
+Event.prototype.fire = function() {
+	chrome.runtime.sendMessage({'type': 'event', 'context': this});
 }
 
 var actions = {
@@ -101,16 +121,18 @@ var actions = {
 			}, 1000);
 	},
 	fillAllDetails: function(data) {
-		
+		new Event("content.details.fill.all.start", data).fire();
 		if (data && data.enabled){
 			Booking.bookingData = data;
 			console.log(Booking.bookingData)
 			var form = document.forms['addPassengerForm'] || document.forms['jpBook'];
+			new Event("content.details.fill.all.pass", form).fire();
 			actions.findAndShowCaptcha();
 			if (form){
 				Booking.fillDetails(form);
 			}
 		}
+		new Event("content.details.fill.all.end", data).fire();
 	}
 }
 actions.loadHandler();
