@@ -222,6 +222,14 @@ var UI = {
 			$('input[type="text"].otherInfo').blur(UI.validateAndSaveTextBoxData);
 			$('input[type="checkbox"].otherInfo').change(UI.validateAndSaveCheckBoxData);
 			$('input[name="bookingCond"]').change(UI.validateAndSaveRadioData);
+			if (!UI.background.BookingData.donotshow) {
+				$('#infoModel').modal(
+			{
+				backdrop: 'static',
+				keyboard: false
+			}
+			);
+			}
 			console.log(UI.background.BookingData);
 		});
 	}
