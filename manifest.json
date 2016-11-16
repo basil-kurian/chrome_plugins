@@ -8,6 +8,7 @@
   },
   "content_scripts": [{
     "matches": ["https://www.irctc.co.in/eticketing/*"],
+	"run_at" : "document_end",
     "js": ["./js/content.js"]
   }],
   "description": "This Plugin is for IRCTC Tatkal auto fill purpose, Please dont miss use it.:P",
