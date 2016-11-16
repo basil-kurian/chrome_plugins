@@ -11,8 +11,40 @@
     <link rel="stylesheet" href="./css/bootstrap.min.css">
     <link rel="stylesheet" href="./css/private.css">
 </head>
-<body style="width:450px;height:550px;" class="bg-warning">
-<div class="container-fluid" >
+<body style="width:450px;height:550px;" >
+<div class="container-fluid" class="bg-info">
+	<div class="modal fade" id="infoModel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+	  <div class="modal-dialog" role="document">
+		<div class="modal-content">
+		  <div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			<h4 class="modal-title" id="myModalLabel">
+				Usage:
+			</h4>
+		  </div>
+		  <div class="modal-body" id="content_info_modal">
+			
+		  
+		  
+		  </div>
+		  <div class="modal-footer">
+			<div class="row">
+				<div class="col-xs-6">
+				 <div class="pull-left">
+					<input type="checkbox" id="donotshow" class="otherInfo"/>
+					<label for="donotshow"> Don't show this again </label>
+				 </div>
+				</div>
+				
+				<div class="col-xs-6">
+					<button type="button" class="btn btn-block btn-danger" data-dismiss="modal">Ok</button>
+				</div>
+				
+			</div>
+		  </div>
+		</div>
+	  </div>
+	</div>
 
 	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 	  <div class="modal-dialog" role="document">
@@ -32,53 +64,53 @@
 	  </div>
 	</div>
 
-		<div class="well">  
-				<div class="row">
-					<ul class="list-group">
-						<li class="list-group-item">
-							Plug-in Status <small>(Disable, if plug-in support is not required)</small>
-							<div class="material-switch pull-right">
-								<input type="checkbox" id="enabled" checked class="otherInfo"/>
-								<label for="enabled" class="label-success"></label>
-							</div>
-						</li>
-						<li class="list-group-item">
-							Travel Insurance
-							<div class="material-switch pull-right">
-								<input type="checkbox" id="travel_insurance" class="otherInfo"/>
-								<label for="travel_insurance" class="label-success"></label>
-							</div>
-						</li>
-					</ul>
-				</div>
-	  <!-- Mobile Number and Other details Row -->
-				<div class="row">
-					<div class="form-group form-group-sm">
-						<div class="col-xs-6">
-								<div class="input-group input-group-xs">
-									  
-									  <div class="input-group-addon">
-										<span class="glyphicon glyphicon-phone" aria-hidden="true"></span>
-									  </div>
-									  <input type="text" class="form-control input-xs otherInfo" id="mobileNumber" placeholder="Mobile No:">  
-							
-								</div>
-						</div>
-						<div class="col-xs-6">
-									<div class="input-group input-group-xs">
-										  <div class="input-group-addon">
-											<span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>
-										  </div>
-										  <input type="text" class="form-control input-xs otherInfo" tabindex="-1" id="boardingStation" placeholder="Boarding station(Optional)">  
-									</div>
-						</div>
+	<div class="well">  
+		<div class="row">
+			<ul class="list-group">
+				<li class="list-group-item">
+					Plug-in Status <small>(Disable, if plug-in support is not required)</small>
+					<div class="material-switch pull-right">
+						<input type="checkbox" id="enabled" checked class="otherInfo"/>
+						<label for="enabled" class="label-success"></label>
 					</div>
-				</div>
-			
+				</li>
+				<li class="list-group-item">
+					Travel Insurance
+					<div class="material-switch pull-right">
+						<input type="checkbox" id="travel_insurance" class="otherInfo"/>
+						<label for="travel_insurance" class="label-success"></label>
+					</div>
+				</li>
+			</ul>
 		</div>
+  <!-- Mobile Number and Other details Row -->
+		<div class="row">
+			<div class="form-group form-group-sm">
+				<div class="col-xs-6">
+						<div class="input-group input-group-xs">
+							  
+							  <div class="input-group-addon">
+								<span class="glyphicon glyphicon-phone" aria-hidden="true"></span>
+							  </div>
+							  <input type="text" class="form-control input-xs otherInfo" id="mobileNumber" placeholder="Mobile No:">  
+					
+						</div>
+				</div>
+				<div class="col-xs-6">
+							<div class="input-group input-group-xs">
+								  <div class="input-group-addon">
+									<span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>
+								  </div>
+								  <input type="text" class="form-control input-xs otherInfo" tabindex="-1" id="boardingStation" placeholder="Boarding station(Optional)">  
+							</div>
+				</div>
+			</div>
+		</div>
+	
+	</div>
 
-	  <!-- Nav tabs -->
-	  <ul class="nav nav-tabs" role="tablist">
+	  
+	<ul class="nav nav-tabs" role="tablist"> <!-- Heading tabs -->
 		<li role="presentation" class="active"><a   tabindex="-1" href="#passengerDetails" aria-controls="passengerDetails" role="tab" data-toggle="tab"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>Passenger
 		<span class="badge" id="passengerCount">0</span>
 		</a></li>
@@ -92,20 +124,20 @@
 		 <li role="presentation"><a  tabindex="-1"  href="#preferences" aria-controls="preferences" role="tab" data-toggle="tab">
 		 <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
 		Preferences</a></li>
-	  </ul>
+	</ul>
 
-  <!-- Tab panes -->
-	  <div class="tab-content">
+  
+	  <div class="tab-content"> <!-- Tab pane contents -->
 	  
-	  	<div role="tabpanel" class="tab-pane fade" id="preferences">
+		<div role="tabpanel" class="tab-pane fade" id="preferences"> <!-- Other preferences in booking form -->
 			
 				<div class="panel-body"> 
 					<div class="row" style="margin-top: 5px; margin-bottom: 5px;">
 						<div class="form-group">
-							<div class="col-xs-5">
-								<label for="preferedCoach">Preferred Coach ID</label>
+							<div class="col-xs-8">
+								<label for="preferedCoach" style="padding-left: 15px;">Preferred Coach ID</label>
 							</div>
-							<div class="col-xs-7">
+							<div class="col-xs-4">
 								<div class="input-group input-group-xs">
 									<div class="input-group-addon">
 										<span class="glyphicon glyphicon-heart" aria-hidden="true"></span>
@@ -123,7 +155,6 @@
 								<input type="checkbox" id="consider_auto_upgrade" class="otherInfo"/>
 								<label for="consider_auto_upgrade" class="label-success"></label>
 							</div>
-							</li>
 							</li>
 							<li class="list-group-item">
 							<label>Book only if confirm berths are allotted</label>
@@ -155,9 +186,8 @@
 						</ul>
 					</div>
 				</div>	
-	   </div> <!-- PreferencePanel end -->
-
-	   <div role="tabpanel" class="tab-pane fade in active" id="passengerDetails"> <!-- Mobile Number and Other details Row -->
+	    </div> <!-- PreferencePanel end -->
+	    <div role="tabpanel" class="tab-pane fade in active" id="passengerDetails"> <!-- Passenger details -->
 		  <div class="panel-body">
 			  <form id="passengerForm">
 				<div class="row"> <!-- Row 1 -->
@@ -233,7 +263,7 @@
 				
 		  </div> <!-- Panel Body End -->
 		</div>	 <!-- Panel End -->
-	   <div role="tabpanel" class="tab-pane fade" id="childrenDetails">
+	    <div role="tabpanel" class="tab-pane fade" id="childrenDetails"> <!-- Children details -->
 		  <div class="panel-body"> 
 				 <form id="childrenForm">
 				 <div class="row"> <!-- Row 1 -->
@@ -301,7 +331,7 @@
 		  </div> <!-- Panel Body End -->
 		</div>	 <!-- Panel End -->
 	   
-	  </div>
+	  </div> <!-- Tab pane content end -->
 	  
  </div>
 <script src="./js/jquery.min.js"></script>
