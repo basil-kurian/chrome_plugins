@@ -102,23 +102,28 @@ var actions = {
 							}
 						}
 					},
+	checkAndGetCallBack : function() {
+		return document.getElementById("j_captcha") || document.getElementById("nlpAnswer");
+	},
+
 	findAndShowCaptcha : function() {
 			captcha = document.getElementById("addPassengerForm:dynamicCapatchaPanel");
 			window.scrollBy(0,800);
-			setTimeout(function(){
-				var identifier = $("#nlpIdentifier");
-				if (identifier != undefined && identifier.length){
-					input = $("input#nlpAnswer");
-					if (captcha && input.length){
-							input.blur(function() {
-								if (input.val() && input.val() != ""){
-									$("#validate").click();
+			j_captcha = document.getElementById("j_captcha");
+			if (captcha ){
+				var time = setInterval(function(){
+					var input  = actions.checkAndGetCallBack();
+					if (input){
+						input.focus();
+						clearInterval(time);
+						input.onblur = function() {
+								if (input.value && input.value != ""){
+									document.getElementById("validate").click();
 								}
-							});
-							input.focus();
+							};
 					}
-				}
-			}, 1000);
+				}, 1000);
+			}
 	},
 	fillAllDetails: function(data) {
 		new Event("content.details.fill.all.start", data).fire();
